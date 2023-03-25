@@ -75,6 +75,59 @@ class BinarySearchTree:
             if current.right is not None:
                 q.append(current.right)
 
+    # in order next node
+    def InorderSuccessor(self, current):
+        # 1. 右子樹不為空，則右子樹的最左邊的節點為後繼節點
+        if current.right is not None:
+            return self.leftmost(current.right)
+
+        # 2. 右子樹為空，則往上找，直到找到某個節點是其父節點的左子樹，則該父節點為後繼節點
+        successor = current.parent
+        while successor is not None and current == successor.right:
+            current = successor
+            successor = successor.parent
+
+        return successor
+
+    # in order previos node
+    def InorderPredecessor(self, current):
+        # 1. 左子樹不為空，則左子樹的最右邊的節點為前驅節點
+        if current.left is not None:
+            return self.rightmost(current.left)
+
+        # 2. 左子樹為空，則往上找，直到找到某個節點是其父節點的右子樹，則該父節點為前驅節點
+        predecessor = current.parent
+        while predecessor is not None and current == predecessor.left:
+            current = predecessor
+            predecessor = predecessor.parent
+
+        return predecessor
+
+    def leftmost(self, current):
+        while current.left is not None:
+            current = current.left
+
+        return current
+
+    def rightmost(self, current):
+        while current.right is not None:
+            current = current.right
+
+        return current
+
+    def Inorder_by_parent(self, root):
+        current = self.leftmost(root)
+        while current is not None:
+            print(current.info, end=" ")
+            current = self.InorderSuccessor(current)  # 找下一個節點
+
+    def Inorder_Reverse(self, root):
+        current = self.rightmost(root)
+
+        while current is not None:
+            print(current.info, end=" ")
+            current = self.InorderPredecessor(current)  # 找上一個節點
+
 
 def main():
     bst = BinarySearchTree()
@@ -84,6 +137,10 @@ def main():
     bst.preOrder(bst.root)
     print()
     bst.inOrder(bst.root)
+    print()
+    bst.Inorder_by_parent(bst.root)
+    print()
+    bst.Inorder_Reverse(bst.root)
     print()
     bst.poseOrder(bst.root)
     print()
