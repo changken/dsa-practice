@@ -1,3 +1,6 @@
+from collections import deque
+
+
 class TreeNode:
     def __init__(self, data):
         self.left = None
@@ -8,24 +11,56 @@ class TreeNode:
 
 class BinaryTree:
     def __init__(self, char_strings):
-        self.char_arr = char_strings.split(" ")
+        char_arr = char_strings.split(" ")
 
-        self.root = TreeNode(self.char_arr[0])
+        self.root = TreeNode(char_arr[0])
 
-        self.LevelorderConstruct(self.char_arr)
+        self.LevelOrderConstruct(char_arr[1:])
 
-    def LevelorderConstruct(char_arr):
-        pass
+    def LevelOrderConstruct(self, char_arr):
+        q = deque()
+        current = self.root
 
-    def InsertLevelorder(data):
-        pass
+        for i in range(0, len(char_arr), 2):
+            if char_arr[i] >= 'A' and char_arr[i] <= 'Z':
+                current.left = TreeNode(char_arr[i])
+                current.left.parent = current
+                q.append(current.left)
 
-    def leftmost(current):
+            if char_arr[i+1] >= 'A' and char_arr[i+1] <= 'Z':
+                current.right = TreeNode(char_arr[i+1])
+                current.right.parent = current
+                q.append(current.right)
+
+            current = q.popleft()
+
+    def InsertLevelOrder(self, data):
+        q = deque()
+        current = self.root
+
+        while current:
+            if current.left is not None:
+                q.append(current.left)
+            else:
+                current.left = TreeNode(data)
+                current.left.parent = current
+                break
+
+            if current.right is not None:
+                q.append(current.right)
+            else:
+                current.right = TreeNode(data)
+                current.right.parent = current
+                break
+
+            current = q.popleft()
+
+    def leftmost(self, current):
         while current.left is not None:
             current = current.left
         return current
 
-    def InorderSuccessor(current):
+    def InOrderSuccessor(self, current):
         # 右子樹不為空，則右子樹的最左邊的節點為後繼者
         if current.right is not None:
             return self.leftmost(current.right)
@@ -37,16 +72,28 @@ class BinaryTree:
             current = successor
             successor = successor.parent
 
-    def Inorder_by_parent(self):
+        return successor
+
+    def InOrder_by_parent(self):
         current = self.leftmost(self.root)
 
         while current is not None:
             print(current.info, end=" ")
-            current = self.InorderSuccessor(current)
+            current = self.InOrderSuccessor(current)
 
 
 def main():
-    pass
+    char_strings = "A B C D E F x x x G H x I"
+    T = BinaryTree(char_strings)  # 以level-order規則建立Binary Tree
+    T.InOrder_by_parent()  # 以inorder-traversal印出Binary Tree
+    print()
+
+    T.InsertLevelOrder('K')
+    T.InsertLevelOrder('L')
+    T.InsertLevelOrder('M')
+    T.InsertLevelOrder('N')
+    T.InOrder_by_parent()
+    print()
 
 
 if __name__ == "__main__":

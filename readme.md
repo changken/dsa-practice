@@ -9,6 +9,8 @@
 
 # Todo
 
-[x] LinkedList
-[x] Stack
-[x] Queue
+- LinkedList
+- Stack
+- Queue
+- Binary Tree
+- Binary Search Tree
