@@ -14,3 +14,4 @@
 - Queue
 - Binary Tree
 - Binary Search Tree
+- Red Black Tree

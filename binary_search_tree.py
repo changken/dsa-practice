@@ -13,6 +13,19 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
+    def search(self, key):
+        current = self.root
+
+        # 1.沒找到
+        # 2.找到
+        while current is not None and current.info != key:
+            if key < current.info:
+                current = current.left #往左走
+            else:
+                current = current.right #往右走 
+        
+        return current
+
     def insert(self, data):
         if self.root is None:
             self.root = TreeNode(data)
@@ -35,6 +48,58 @@ class BinarySearchTree:
                         break
                     else:
                         current = current.right
+    
+    def delete(self, key):
+        delete_node = self.search(key)
+
+        # 先確認BST中是否有具有KEY的node
+        if delete_node is None:
+            print("data not found!")
+            return
+
+        real_delete_node = None # 真正要被刪除並釋放記憶體的node
+        delete_node_child = None # 要被刪除的node的"child"
+
+        if delete_node.left is None or delete_node.right is None:
+            real_delete_node = delete_node
+        else:
+            # 將real_delete_node設成delete_node的Successor
+            real_delete_node = self.InorderSuccessor(delete_node)
+
+        # 經過這組if-else, y調整成至多只有一個child
+        # 全部調整成case1或case2來處理
+
+        # 將 delete_node_child 設成 real_delete_node 的child, 可能是有效記憶體,
+        # 也有可能是None
+        if real_delete_node.left is not None:
+            delete_node_child = real_delete_node.left
+        else:
+            delete_node_child = real_delete_node.right
+
+        # 在 real_delete_node 被刪除之前, 這個步驟把 delete_node_child 接回BST
+        if real_delete_node is not None:
+            delete_node_child.parent = real_delete_node.parent # 此即為圖二(c)中, 把基紐接回龜仙人的步驟
+
+        # 接著再把要被釋放記憶體的node之"parent"指向新的child
+        if real_delete_node.parent is None:
+            # 若刪除的是原先的root, 就把delete_node_child當成新的root 
+            self.root = delete_node_child
+        elif real_delete_node == real_delete_node.parent.left:
+            # 若 real_delete_node 原本是其parent之left child
+            # 便把 delete_node_child 皆在 real_delete_node 的parent的left child, 取代 real_delete_node
+            real_delete_node.parent.left = delete_node_child
+        else:
+            # 若 real_delete_node 原本是其parent之right child
+            # 便把 delete_node_child 皆在real_delete_node的parent的right child, 取代real_delete_node
+            real_delete_node.parent.right = delete_node_child
+        
+        #針對case3
+        if real_delete_node != delete_node:          # 若real_delete_node是delete_node的替身, 最後要再將real_delete_node的資料
+            delete_node.info = real_delete_node.info # 放回delete_node的記憶體位置, 並將real_delete_node的記憶體位置釋放
+                                                     # 圖二(d), y即是達爾, delete_node即是西魯
+
+        del real_delete_node # 將real_delete_node的記憶體位置釋放
+        real_delete_node = None
 
     def preOrder(self, root):
         if root is None:
@@ -145,6 +210,16 @@ def main():
     bst.poseOrder(bst.root)
     print()
     bst.levelOrder()
+    print()
+
+    print("5在不在? ", bst.search(5) is not None)
+    print()
+    print("11在不在? ", bst.search(11)  is not None)
+    print()
+
+    bst.delete(5)
+
+    print("5在不在? ", bst.search(5) is not None)
     print()
 
 
