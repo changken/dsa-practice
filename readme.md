@@ -40,7 +40,17 @@
 - AVL Tree 參考
 
   1. https://josephjsf2.github.io/data/structure/and/algorithm/2019/06/22/avl-tree.html
-  2. https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
+  2. https://github.com/josephjsf2/DS-Alg/tree/master/AVLTREE/src/com/joseph
+  3. https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
 
 - B tree 參考
+
   1. https://www.geeksforgeeks.org/introduction-of-b-tree-2/
+
+- Hash Table x
+
+  1. http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html
+
+- Priority Queue(Heap) x
+
+  1. http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html
