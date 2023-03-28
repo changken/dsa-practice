@@ -12,6 +12,38 @@ class RedBlackTree:
         self.root = None
         self.neel = TreeNode(None, None)
 
+    def search(self, key):
+        current = self.root
+
+        while current is not None and current.key != key:
+            if key < current.key:
+                current = current.left
+            else:
+                current = current.right
+
+        return current
+
+    # 最左邊的節點
+    def leftmost(self, current):
+        while current.left is not None:
+            current = current.left
+
+        return current
+
+    # 中序走訪的下個節點
+    def InOrderSuccessor(self, current):
+        # 1. 右子樹不為空，則右子樹的最左邊的節點為後繼節點
+        if current.right is not None:
+            return self.leftmost(current.right)
+
+         # 2. 右子樹為空，則往上找，直到找到某個節點是其父節點的左子樹，則該父節點為後繼節點
+        successor = current.parent
+        while successor is not None and current == successor.right:
+            current = successor
+            successor = successor.parent
+
+        return successor
+
     def left_rotation(self, x):
         y = x.right  # 把y指向x的rightchild, 最後y會變成x的parent
         x.right = y.left  # 圖二(c)左, 把y的leftchild托在x的rightchild
@@ -123,3 +155,52 @@ class RedBlackTree:
                     self.left_rotation(current.parent.parent)
 
         self.root.color = True  # 確保root是黑色
+
+    def delete(self, key):  # 要刪除具有KEY的node
+        # 先確認RBT中是否存在具有KEY的node
+        delete_node = self.search(key)
+
+        if delete_node is None:
+            print("data not found!")
+            return
+
+        real_delete_node = None  # 真正要被刪除並釋放記憶體的node
+        delete_node_child = None  # 要被刪除的node的"child"
+
+        if delete_node.left == self.neel or delete_node.right == self.neel:
+            real_delete_node = delete_node
+        else:
+            # 將real_delete_node設成delete_node的Successor
+            real_delete_node = self.InOrderSuccessor(delete_node)
+            # 經過這組if-else, real_delete_node調整成至多只有一個child
+
+        if real_delete_node.left != self.neel:  # 將delete_node_child設成real_delete_node的child, 可能有實際資料, 也有可能是NIL
+            delete_node_child = real_delete_node.left
+        else:
+            delete_node_child = real_delete_node.right
+
+        # 即使delete_node_child是NIL也要把delete_node_child的parent指向有效的記憶體位置
+        delete_node_child.parent = real_delete_node.parent
+        # 因為在FixUp時需要藉由delete_node_child->parent判斷delete_node_child為leftchild或是rightchild
+
+        if real_delete_node.parent == self.neel:  # 接著再把要被釋放記憶體的node之"parent"指向新的child
+            self.root = delete_node_child  # 若刪除的是原先的root, 就把delete_node_child當成新的root
+        elif real_delete_node == real_delete_node.parent.left:  # 若real_delete_node原本是其parent之left child
+            # 便把delete_node_child皆在real_delete_node的parent的left child, 取代real_delete_node
+            real_delete_node.parent.left = delete_node_child
+        else:  # 若real_delete_node原本是其parent之right child
+            # 便把delete_node_child皆在real_delete_node的parent的right child, 取代real_delete_node
+            real_delete_node.parent.right = delete_node_child
+
+        # 針對case3
+        if real_delete_node != delete_node:
+            # 若real_delete_node是delete_node的替身, 最後要再將real_delete_node的資料
+            delete_node.key = real_delete_node.key
+            # 放回delete_node的記憶體位置, 並將real_delete_node的記憶體位置釋放
+            delete_node.strs = real_delete_node.strs
+
+        if real_delete_node.color == True:  # 若刪除的node是黑色, 要從delete_node_child進行修正, 以符合RBT的顏色規則
+            self.delete_fixup(delete_node_child)
+
+    def delete_fixup(self, current):
+        pass
