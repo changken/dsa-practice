@@ -9,13 +9,22 @@ class TreeNode:
 
 class RedBlackTree:
     def __init__(self):
-        self.root = None
-        self.neel = TreeNode(None, None)
+        self.neel = TreeNode(None, None)  # neel 需要配置記憶體
+        self.neel.color = True  # neel 是黑色
+        self.root = self.neel  # 為了insert, 要把root 初始化成neel
+        self.root.parent = self.neel
+
+    def InOrder_by_parent(self):
+        current = self.leftmost(self.root)
+        while current is not self.neel:
+            print("[key={0}, strs={1}, color={2}]".format(
+                current.key, current.strs, current.color))
+            current = self.InOrderSuccessor(current)
 
     def search(self, key):
         current = self.root
 
-        while current is not None and current.key != key:
+        while current is not self.neel and current.key != key:
             if key < current.key:
                 current = current.left
             else:
@@ -25,7 +34,7 @@ class RedBlackTree:
 
     # 最左邊的節點
     def leftmost(self, current):
-        while current.left is not None:
+        while current.left is not self.neel:
             current = current.left
 
         return current
@@ -33,12 +42,12 @@ class RedBlackTree:
     # 中序走訪的下個節點
     def InOrderSuccessor(self, current):
         # 1. 右子樹不為空，則右子樹的最左邊的節點為後繼節點
-        if current.right is not None:
+        if current.right is not self.neel:
             return self.leftmost(current.right)
 
          # 2. 右子樹為空，則往上找，直到找到某個節點是其父節點的左子樹，則該父節點為後繼節點
         successor = current.parent
-        while successor is not None and current == successor.right:
+        while successor is not self.neel and current == successor.right:
             current = successor
             successor = successor.parent
 
@@ -88,6 +97,8 @@ class RedBlackTree:
         y = self.neel  # root的上一個
         x = self.root  # 初始為root
         insert_node = TreeNode(key, strs)
+        insert_node.left = self.neel
+        insert_node.right = self.neel
 
         while x != self.neel:  # 把root初始化成neel, 這裡就可以用neel來做判斷
             y = x
@@ -160,7 +171,7 @@ class RedBlackTree:
         # 先確認RBT中是否存在具有KEY的node
         delete_node = self.search(key)
 
-        if delete_node is None:
+        if delete_node is self.neel:
             print("data not found!")
             return
 
@@ -203,4 +214,80 @@ class RedBlackTree:
             self.delete_fixup(delete_node_child)
 
     def delete_fixup(self, current):
-        pass
+        # Case0:(i)  current是紅色的, 直接把它塗黑
+        # (ii) current是root, 直接把它塗黑
+        while current != self.root and current.color == True:
+            # current是leftchild
+            if current == current.parent.left:
+                sibling = current.parent.right
+                # Case1: 如果sibling是紅色
+                if sibling.color == False:
+                    sibling.color = True
+                    current.parent.color = False
+                    self.left_rotation(current.parent)
+                    sibling = current.parent.right
+                # 進入 Case2、3、4: sibling是黑色
+                # Case2: sibling的兩個child都是黑色
+                if sibling.left.color == True and sibling.right.color == True:
+                    sibling.color = False
+                    current = current.parent  # 若current更新到root, 即跳出迴圈
+                # Case3 & 4: current只有其中一個child是黑色
+                else:
+                    # case3: sibling的right child是黑的, left child是紅色
+                    if sibling.right.color == True:
+                        sibling.left.color = True
+                        sibling.color = False
+                        self.right_rotation(sibling)
+                        sibling = current.parent.right
+
+                    # 經過Case3後, 一定會變成Case4
+                    # Case 4: sibling的right child 是紅色的, left child是黑色
+                    sibling.color = current.parent.color
+                    current.parent.color = True
+                    sibling.right.color = True
+                    self.left_rotation(current.parent)
+                    current = self.root  # 將current移動到root, 一定跳出迴圈
+            # current是rightchild
+            else:
+                sibling = current.parent.left
+                # Case1: 如果sibling是紅色
+                if sibling.color == False:
+                    sibling.color = True
+                    current.parent.color = False
+                    self.right_rotation(current.parent)
+                    sibling = current.parent.left
+                # 進入 Case2、3、4: sibling是黑色
+                # Case2: sibling的兩個child都是黑色
+                if sibling.left.color == True and sibling.right.color == True:
+                    sibling.color = False
+                    current = current.parent  # 若current更新到root, 即跳出迴圈
+                # Case3 & 4: current只有其中一個child是黑色
+                else:
+                    # case3: sibling的left child是黑的, right child是紅色
+                    if sibling.left.color == True:
+                        sibling.right.color = True
+                        sibling.color = False
+                        self.left_rotation(sibling)
+                        sibling = current.parent.left
+                    # 經過Case3後, 一定會變成Case4
+                    # Case 4: sibling的left child 是紅色的, right child是黑色
+                    sibling.color = current.parent.color
+                    current.parent.color = True
+                    sibling.left.color = True
+                    self.right_rotation(current.parent)
+                    current = self.root  # 將current移動到root, 一定跳出迴圈
+
+        current.color = True
+
+
+if __name__ == "__main__":
+    rbt = RedBlackTree()
+    strs = "redblacktree"
+    for i in range(len(strs)):
+        rbt.insert(i, strs[i])
+    rbt.InOrder_by_parent()
+
+    rbt.delete(2)
+    rbt.InOrder_by_parent()
+
+    print(rbt.search(3) is not None)
