@@ -2,8 +2,9 @@
 
 # 參考資料
 
-0. http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html
-1. https://josephjsf2.github.io/tags
+1. http://alrightchiu.github.io/SecondRound/mu-lu-yan-suan-fa-yu-zi-liao-jie-gou.html
+2. https://josephjsf2.github.io/tags
+3. https://www.geeksforgeeks.org/data-structures/?ref=lbp
 
 # Todo
 
@@ -37,4 +38,9 @@
   4. http://alrightchiu.github.io/SecondRound/red-black-tree-deleteshan-chu-zi-liao-yu-fixupxiu-zheng.html
 
 - AVL Tree 參考
+
   1. https://josephjsf2.github.io/data/structure/and/algorithm/2019/06/22/avl-tree.html
+  2. https://www.geeksforgeeks.org/insertion-in-an-avl-tree/
+
+- B tree 參考
+  1. https://www.geeksforgeeks.org/introduction-of-b-tree-2/
