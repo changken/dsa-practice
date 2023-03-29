@@ -47,9 +47,11 @@
 
   1. https://www.geeksforgeeks.org/introduction-of-b-tree-2/
 
-- Hash Table x
+- Hash Table
 
   1. http://alrightchiu.github.io/SecondRound/hash-tableintrojian-jie.html
+  2. http://alrightchiu.github.io/SecondRound/hash-tablechaining.html
+  3. http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html
 
 - Priority Queue(Heap) x
 
