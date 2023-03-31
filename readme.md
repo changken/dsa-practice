@@ -53,6 +53,13 @@
   2. http://alrightchiu.github.io/SecondRound/hash-tablechaining.html
   3. http://alrightchiu.github.io/SecondRound/hash-tableopen-addressing.html
 
-- Priority Queue(Heap) x
+- Priority Queue(Heap)
 
   1. http://alrightchiu.github.io/SecondRound/priority-queueintrojian-jie.html
+  2. http://alrightchiu.github.io/SecondRound/priority-queuebinary-heap.html
+
+- Sort
+
+- Set
+
+- Graph
