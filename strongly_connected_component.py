@@ -167,31 +167,79 @@ class Graph:
                         print(j, end=" ")
                 print()
 
-    def graphTranspose(self) -> Graph:  # 產生Transpose of Graph
-        pass
+    def graphTranspose(self):  # 產生Transpose of Graph
+        gT = Graph(self.num_vertex)
+        for i in range(self.num_vertex):
+            for j in range(len(self.adjList[i])):
+                gT.addEdgeList(self.adjList[i][j], i)
+
+        return gT
 
     def printSCCs(self, start: int = 0) -> None:  # 吃一個int, 表示起點vertex, 若沒給就從0開始
-        pass
+        # 第一次DFS(), 目的是取得finish[]
+        self.dfs(start)
+
+        # 顯示 第一次DFS()後的finish[]
+        print("First DFS() on G, finish time:")
+        self.printFinish()
+
+        # gT代表Transpose of Graph
+        gT = self.graphTranspose()
+
+        # 矩陣 finishLargetoSmall[] 用來儲存 finish[] 由大至小的vertex順序
+        finishLargetoSmall = [i for i in range(self.num_vertex)]
+
+        # QuickSort()會更新 finishLargetoSmall[] 成 finish[] 由大至小的vertex順序
+        self.quickSort(self.finish, 0, self.num_vertex-1, finishLargetoSmall)
+
+        # 列印出 finish[] 由大至小的vertex順序
+        print("finish time Large to Small:")
+        self.printDataArray(finishLargetoSmall)
+
+        # 第二次DFS(), 執行在gT上, 先對四個資料「配置記憶體」且「初始化」
+        for i in range(self.num_vertex):
+            if gT.getColor(finishLargetoSmall[i]) == 0:
+                gT.dfsVisit(finishLargetoSmall[i])
+
+        # 顯示 第二次DFS()後的finish[]
+        print("Second DFS() on gT, finish time:\n")
+        gT.printFinish()
+
+        # 顯示 第二次DFS()後的predecessor[]
+        print("predecessor[] before SetCollapsing:\n")
+        gT.printPredecessor()
+
+        for i in range(self.num_vertex):
+            gT.setCollapsing(i)
+
+        # 顯示 SetCollapsing後的predecessor[]
+        print("predecessor after SetCollapsing:\n")
+        gT.printPredecessor()
+
+        # 如同在undirected graph中尋找connected component
+        gT.printComponent()
 
     # 利用QuickSort()得到 finish[] 由大致小的vertex順序
-    def quickSort(self, arr: list, start: int, end: int) -> void:
+    def quickSort(self, arr: list, start: int, end: int, arr2: list) -> None:
         if start < end:
-            pivotIndex = self.partition(arr, start, end)
-            self.quickSort(arr, start, pivotIndex - 1)
-            self.quickSort(arr, pivotIndex + 1, end)
+            pivotIndex = self.partition(arr, start, end, arr2)
+            self.quickSort(arr, start, pivotIndex - 1, arr2)
+            self.quickSort(arr, pivotIndex + 1, end, arr2)
 
     # 遞迴版本 => waste memory
     # 原地交換版本(In-Place)-Lomuto partition scheme V
     # 原地交換版本(In-Place)-Hoare partition scheme
-    def partition(self, arr: list, start: int, end: int) -> int:
+    def partition(self, arr: list, start: int, end: int, arr2: list) -> int:
         n = len(arr)
         pivot = arr[end]
         nextIndex = start
         for i in range(start, n - 1):
-            if arr[i] < pivot:
+            if arr[i] > pivot:
                 arr[nextIndex], arr[i] = arr[i], arr[nextIndex]
+                arr2[nextIndex], arr2[i] = arr2[i], arr2[nextIndex]
                 nextIndex += 1
         arr[nextIndex], arr[end] = arr[end], arr[nextIndex]
+        arr2[nextIndex], arr2[end] = arr2[end], arr2[nextIndex]
         return nextIndex
 
 
