@@ -60,6 +60,11 @@
 
 - Sort
 
+  1. http://alrightchiu.github.io/SecondRound/comparison-sort-insertion-sortcha-ru-pai-xu-fa.html
+  2. http://alrightchiu.github.io/SecondRound/comparison-sort-quick-sortkuai-su-pai-xu-fa.html
+  3. http://alrightchiu.github.io/SecondRound/comparison-sort-heap-sortdui-ji-pai-xu-fa.html
+  4. http://alrightchiu.github.io/SecondRound/comparison-sort-merge-sorthe-bing-pai-xu-fa.html
+
 - Set
   1. http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html
 - Graph
