@@ -1,4 +1,5 @@
 import abc
+from print_data_array import PrintDataArray
 
 # 遞迴版本 會有龐大的空間複雜度
 
@@ -71,23 +72,17 @@ def QuickSort(arr: list[int], start: int, end: int, partition: PartitionInterfac
         QuickSort(arr, pivot + 1, end, partition)
 
 
-def PrintArray(arr: list[int]) -> None:
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     arr = [9, 4, 1, 6, 7, 3, 8, 2, 5]
 
     print("original: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
     #QuickSort(arr, 0, len(arr) - 1, HoarePartition)
     arr = QuickSortRecursion(arr)
 
     print("sorted: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
 
 if __name__ == "__main__":

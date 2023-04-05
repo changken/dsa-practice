@@ -1,4 +1,5 @@
 import math
+from print_data_array import PrintDataArray
 
 
 def BucketSort(arr: list[int]) -> None:
@@ -19,7 +20,7 @@ def BucketSort(arr: list[int]) -> None:
     result = []
 
     # O(k)
-    for i in range(len(buckets)): 
+    for i in range(len(buckets)):
         buckets[i] = sorted(buckets[i])  # 將每個bucket內的元素做排序
 
         result.extend(buckets[i])  # 將每個bucket內的元素放入result
@@ -27,22 +28,16 @@ def BucketSort(arr: list[int]) -> None:
     return result
 
 
-def PrintArray(arr: list[int]) -> None:
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     arr = [9, 15, 12, 23, 33, 26, 7, 31, 42, 36]
 
     print("original: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
     arr = BucketSort(arr)
 
     print("sorted: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
 
 if __name__ == "__main__":

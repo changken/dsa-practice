@@ -1,3 +1,6 @@
+from print_data_array import PrintDataArray
+
+
 def ShellSort(arr: list[int]) -> None:
     n = len(arr)
     gap = n // 2  # 時間複雜度會因gap而有所不同，每次為原本的一半
@@ -14,22 +17,16 @@ def ShellSort(arr: list[int]) -> None:
         gap //= 2  # gap砍一半
 
 
-def PrintArray(arr: list[int]) -> None:
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     arr = [89, 34, 23, 78, 67, 100, 66, 29, 79, 55, 78, 88, 92, 96, 96, 23]
 
     print("original: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
     ShellSort(arr)
 
     print("sorted: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
 
 if __name__ == "__main__":

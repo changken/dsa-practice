@@ -1,4 +1,5 @@
 import math
+from print_data_array import PrintDataArray
 
 
 def MergeSort(arr: list[int], start: int, end: int) -> None:
@@ -30,22 +31,16 @@ def Merge(arr: list[int], start: int, mid: int, end: int) -> None:
             right += 1
 
 
-def PrintArray(arr: list[int]) -> None:
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     arr = [5, 3, 8, 6, 2, 7, 1, 4]
 
     print("original: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
     MergeSort(arr, 0, len(arr)-1)
 
     print("sorted: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
 
 if __name__ == "__main__":

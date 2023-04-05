@@ -1,3 +1,5 @@
+from print_data_array import PrintDataArray
+
 def MaxHeapify(arr: list[int], root: int, length: int) -> None:
     left = 2 * root  # 取得left child
     right = 2 * root + 1  # 取得right child
@@ -35,23 +37,16 @@ def HeapSort(arr: list[int]) -> None:
 
     arr.pop(0)  # 將index(0)刪除
 
-
-def PrintArray(arr: list[int]) -> None:
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     arr = [9, 4, 1, 6, 7, 3, 8, 2, 5]
 
     print("original: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
     HeapSort(arr)
 
     print("sorted: \n")
-    PrintArray(arr)
+    PrintDataArray(arr)
 
 if __name__ == "__main__":
     main()

@@ -1,4 +1,7 @@
-def insertionSort(arr: list[int]):
+from print_data_array import PrintDataArray
+
+
+def InsertionSort(arr: list[int]):
     for i in range(1, len(arr)):
         key = arr[i]  # 檢查目前的key
         j = i - 1  # j等於i-1個元素
@@ -9,22 +12,16 @@ def insertionSort(arr: list[int]):
         arr[j+1] = key  # 如果j超出範圍 或 key > arr[j]
 
 
-def printDataArray(arr: list[int]):
-    for i in range(len(arr)):
-        print("   {0}".format(arr[i]), end=" ")
-    print()
-
-
 def main():
     array = [5, 3, 1, 2, 6, 4]
 
     print("original: \n")
-    printDataArray(array)
+    PrintDataArray(array)
 
-    insertionSort(array)
+    InsertionSort(array)
 
     print("sorted: \n")
-    printDataArray(array)
+    PrintDataArray(array)
 
 
 if __name__ == "__main__":
