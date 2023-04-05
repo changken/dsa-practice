@@ -70,6 +70,9 @@
      https://ithelp.ithome.com.tw/articles/10279239
   6. http://alrightchiu.github.io/SecondRound/comparison-sort-merge-sorthe-bing-pai-xu-fa.html
      https://ithelp.ithome.com.tw/articles/10278179
+  7. https://ithelp.ithome.com.tw/articles/10277847
+  8. https://ithelp.ithome.com.tw/articles/10279536
+  9. https://ithelp.ithome.com.tw/articles/10279960
 
 - Set
   1. http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html
