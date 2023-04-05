@@ -74,6 +74,12 @@
   8. https://ithelp.ithome.com.tw/articles/10279536
   9. https://ithelp.ithome.com.tw/articles/10279960
 
+- Search
+
+  1. https://ithelp.ithome.com.tw/articles/10280298
+  2. https://ithelp.ithome.com.tw/articles/10280844
+  3. https://ithelp.ithome.com.tw/articles/10281248
+
 - Set
   1. http://alrightchiu.github.io/SecondRound/setyi-arraybiao-shi.html
 - Graph
