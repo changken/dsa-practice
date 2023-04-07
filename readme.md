@@ -89,3 +89,8 @@
   4. http://alrightchiu.github.io/SecondRound/graph-li-yong-dfshe-bfsxun-zhao-connected-component.html
   5. http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-strongly-connected-componentscc.html
   6. http://alrightchiu.github.io/SecondRound/graph-li-yong-dfsxun-zhao-dagde-topological-sorttuo-pu-pai-xu.html
+  - [ ] MST
+  7. http://alrightchiu.github.io/SecondRound/minimum-spanning-treeintrojian-jie.html
+  8. http://alrightchiu.github.io/SecondRound/minimum-spanning-treekruskals-algorithm.html
+  9. http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm.html
+  10. http://alrightchiu.github.io/SecondRound/minimum-spanning-treeprims-algorithm-using-min-priority-queue.html
