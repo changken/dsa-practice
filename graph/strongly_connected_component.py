@@ -99,6 +99,16 @@ class Graph:
         self.time += 1
         self.finish[vertex] = self.time  # 並更新finish時間
 
+    # 對DFS()需要的資料：color, discover, finish, predecessor
+    # 進行「配置記憶體」與「初始化」
+    def VariableInitializeDFS(self) -> None:
+        self.color = [0 for _ in range(self.num_vertex)]  # 0 白色, 1 灰色, 2 黑色
+        self.predecessor = [-1 for _ in range(self.num_vertex)]
+        self.distance = [self.num_vertex+1 for _ in range(self.num_vertex)]  # BFS
+        self.discover = [0 for _ in range(self.num_vertex)]  # DFS
+        self.finish = [0 for _ in range(self.num_vertex)]
+        self.time = 0  # BFS
+
     # 吃一個int, 表示起點vertex, 若沒給就從0開始
     def CCDFS(self, vertex: int = 0) -> None:
         self.dfs(vertex)
@@ -176,6 +186,7 @@ class Graph:
         return gT
 
     def printSCCs(self, start: int = 0) -> None:  # 吃一個int, 表示起點vertex, 若沒給就從0開始
+        self.VariableInitializeDFS()
         # 第一次DFS(), 目的是取得finish[]
         self.dfs(start)
 
@@ -264,7 +275,7 @@ def main():
     print("Vertex(0) as starting point for the First DFS():\n\n")
     g4.printSCCs()
     print("Vertex(3) as starting point for the First DFS():\n\n")
-    g4.printSCCs(3)
+    g4.printSCCs(start=3)
 
 
 if __name__ == "__main__":

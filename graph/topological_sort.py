@@ -3,6 +3,7 @@ import strongly_connected_component
 
 class GraphTopological(strongly_connected_component.Graph):
     def topologicalSort(self, start: int = 0):
+        self.VariableInitializeDFS()
         self.dfs(start)  # 進行一次DFS用來取得 finish[]
 
         # 矩陣 finishLargetoSmall[] 用來儲存 finish[] 由大至小的vertex順序
