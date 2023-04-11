@@ -78,6 +78,13 @@ class BinaryHeap:
     def DecreaseKey(self, node: int, new_key: int) -> None:
         index_node = self.__FindPosition(node)  # 找到node所在的位置index
 
+        print(f"node={node}, index_node={index_node}")
+
+        # 如果找不到index_node(default=0)
+        if index_node == 0:
+            print("this node is not found in this binary heap!\n")
+            return
+
         # 如果不是把node的Key下修, 便終止此函式
         if new_key > self.heap[index_node].key:
             print("new key is not smaller than current key\n")
